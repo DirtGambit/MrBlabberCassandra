@@ -1,0 +1,23 @@
+@CHARSET "ISO-8859-1";
+
+        .buttonMargin {
+            margin-left:20px;
+        }
+        .newalign {
+            vertical-align:top;
+        }
+        @font-face {
+          font-family: CustomFont;
+          src: url('/fonts/HVD_Peace.ttf');
+        }
+
+        .h1 {
+          text-align:center;
+          font-size:72px;
+          
+        }
+        .h2 {
+            font-family: CustomFont;
+          font-size:14px;
+          text-align:left;
+        }

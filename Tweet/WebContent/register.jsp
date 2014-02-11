@@ -4,9 +4,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Mr Blabby</title>
+<title>Insert title here</title>
 <LINK href="Style.css" rel="stylesheet" type="text/css">
-
 </head>
 <body>
 <div id="MainDiv" style="background-color:lightcyan;margin-left:100px;margin-right:100px">
@@ -20,14 +19,3 @@
 </div>
 </body>
 </html>
-
-<%-- <asp:Table runat="server" HorizontalAlign="Center">
-            <asp:TableRow>
-                <asp:TableCell ColumnSpan="2" HorizontalAlign="Center">Mr Blabby</asp:TableCell>
-            </asp:TableRow>
-            <asp:TableRow>
-                <asp:TableCell Width="300px">Welcome to Mr Blabby</asp:TableCell>
-                 <asp:TableCell>4</asp:TableCell>
-                <asp:TableCell>5</asp:TableCell>
-            </asp:TableRow>
-        </asp:Table>--%>
