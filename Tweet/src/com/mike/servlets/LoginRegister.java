@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.LinkedList;
 
 
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 
 
 import com.datastax.driver.core.Cluster;
@@ -23,52 +25,64 @@ import com.datastax.driver.core.Cluster;
 import com.mike.lib.*;
 import com.mike.models.*;
 import com.mike.stores.*;
+
 /**
- * Servlet implementation class Tweet
+ * Servlet implementation class LoginRegister
  */
-@WebServlet({ "/Tweet", "/Tweet/*" })
-public class Tweet extends HttpServlet {
+@WebServlet({ "/LoginRegister", "/LoginRegister/*" })
+public class LoginRegister extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private Cluster cluster;
+	private Cluster cluster;
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Tweet() {
+    public LoginRegister() {
         super();
         // TODO Auto-generated constructor stub
     }
+    
     public void init(ServletConfig config) throws ServletException {
 		// TODO Auto-generated method stub
 		cluster = CassandraHosts.getCluster();
 	}
-    
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-	//	String args[]=Convertors.SplitRequestPath(request);
-		TweetModel tm= new TweetModel();
-		tm.setCluster(cluster);
-		LinkedList<TweetStore> tweetList = tm.getTweets();
-		request.setAttribute("Tweets", tweetList); //Set a bean with the list in it
-		RequestDispatcher rd = request.getRequestDispatcher("/RenderTweets.jsp"); 
-
-
-		rd.forward(request, response);
 	}
-
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		RequestDispatcher rd = request.getRequestDispatcher("/register.jsp"); 
-		rd.forward(request, response);
+		MemberModel member = new MemberModel();
+		String warningMessage = ""; 
+		member.setCluster(cluster);
+		boolean success = false;
+		if(request.getParameter("EMAILBOX").length() > 5)
+		{			
+			success = member.AddUser(request.getParameter("NAMEBOX"), request.getParameter("SNAMEBOX"), request.getParameter("HANDLEBOX"), request.getParameter("EMAILBOX"), request.getParameter("PASSWORDBOX"));
+			if(success == true)
+			{
+				warningMessage = "New User Created, Now Login!";
+				request.setAttribute("warningMessage", warningMessage);
+				RequestDispatcher rd = request.getRequestDispatcher("/index.jsp"); 
+				rd.forward(request, response);
+			}
+		}
+		else
+		{
+			warningMessage = "Check your DOX";
+			request.setAttribute("warningMessage", warningMessage);
+			RequestDispatcher rd = request.getRequestDispatcher("/register.jsp"); 
+			rd.forward(request, response);
+		}
+		
 
+		
 	}
 
-
 }
-
